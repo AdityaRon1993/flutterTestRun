@@ -1,37 +1,48 @@
 import 'package:flutter/material.dart';
 
-import 'product_control.dart';
-import 'products.dart';
+import './products.dart';
+import './product_control.dart';
 
-class ProductManger extends StatefulWidget {
-  final Map initialProductValue;
-  ProductManger({this.initialProductValue});
+class ProductManager extends StatefulWidget {
+  final Map<String, String> startingProduct;
+
+  ProductManager({this.startingProduct}) {
+    print('[ProductManager Widget] Constructor');
+  }
+
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return _ProductManager();
+    print('[ProductManager Widget] createState()');
+    return _ProductManagerState();
   }
 }
 
-class _ProductManager extends State<ProductManger> {
-  List<Map> _products = [];
+class _ProductManagerState extends State<ProductManager> {
+  List<Map<String, String>> _products = [];
+
   @override
   void initState() {
-    // TODO: implement initState
-    print(widget.initialProductValue);
-    if (widget.initialProductValue != null) {
-      _products.add(widget.initialProductValue);
-      super.initState();
+    print('[ProductManager State] initState()');
+    if (widget.startingProduct != null) {
+      _products.add(widget.startingProduct);
     }
+    super.initState();
   }
 
-  void _addProduct(param) {
-    setState(() {
-      _products.add(param);
-      print(_products);
-    });
+  @override
+  void didUpdateWidget(ProductManager oldWidget) {
+    print('[ProductManager State] didUpdateWidget()');
+    super.didUpdateWidget(oldWidget);
   }
-  void _deleteProduct(index){
+
+  void _addProduct(Map<String, String> product) {
+    setState(() {
+      _products.add(product);
+    });
+    print(_products);
+  }
+
+  void _deleteProduct(int index) {
     setState(() {
       _products.removeAt(index);
     });
@@ -39,13 +50,14 @@ class _ProductManager extends State<ProductManger> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    print('[ProductManager State] build()');
     return Column(
       children: [
         Container(
-            margin: EdgeInsets.all(10.0),
-            child: ProductControl(_addProduct, _products.length)),
-        Expanded(child: Products(_products, deleteProduct : _deleteProduct))
+          margin: EdgeInsets.all(10.0),
+          child: ProductControl(_addProduct),
+        ),
+        Expanded(child: Products(_products, deleteProduct: _deleteProduct))
       ],
     );
   }

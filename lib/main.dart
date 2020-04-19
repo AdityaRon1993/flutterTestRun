@@ -1,19 +1,25 @@
-import 'package:first_project/pages/home_page.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter/rendering.dart';
 
-void main() => runApp(MyApp());
+import './pages/auth.dart';
+
+void main() {
+  // debugPaintSizeEnabled = true;
+  // debugPaintBaselinesEnabled = true;
+  // debugPaintPointersEnabled = true;
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // debugShowMaterialGrid: true,
       theme: ThemeData(
-        brightness: Brightness.dark,
-        primaryColor: Colors.deepOrange,
-        accentColor: Colors.deepPurpleAccent,
-
-      ),
-      home: HomePage()
+          brightness: Brightness.light,
+          primarySwatch: Colors.deepOrange,
+          accentColor: Colors.deepPurple),
+      home: AuthPage(),
     );
   }
 }
